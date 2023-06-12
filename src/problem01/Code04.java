@@ -29,7 +29,7 @@ public class Code04 {
 
 //    数据范围小 可以考虑暴力破解
 //    图的表达方式 基本就是考察节点和边的处理方式
-//    节点的表达方式 int -> 二进制数字 1 1000101 1表示红色 0表示黑色
+//    节点的表达方式 int -> 二进制数字 11000101 1表示红色 0表示黑色
 //    边的表达方式 ArrayList<int> 只有两个元素 表示两节点相连 存到数组之中
 //    有了节点和边 直接遍历所有的可能表达方式
     public static void main(String[] args) {
@@ -50,9 +50,17 @@ public class Code04 {
         }
 
         int count = 0;
+//        移位运算
+//        a<<b a左移b位 相当于 a*2^b
+//        a>>b a右移b位 相当于 a/2^b 如11>>2 = 3 正值高位补0 负值补1
+//        a>>>b a无符号右移b位 高位不论正负均补0
+//        m个节点只能填红、黑两种颜色，有2^m种情况，2^m == 1<<m
         for(int i=0;i<(1<<m);i++){
             boolean flag = true;
             for(int j=0;j<n;j++){
+//                edgeArrayList.get(j).get(0)取到的是节点的编号
+//                i >> (m - edgeArrayList.get(j).get(0)) 算的取当前节点的颜色
+//                i >> (m - edgeArrayList.get(j).get(0))&1 算的当前节点是否为红色
                 if(((i>>(m-edgeArrayList.get(j).get(0)))&1)==1 &&
                         ((i>>(m-edgeArrayList.get(j).get(1)))&1)==1
                 ){
